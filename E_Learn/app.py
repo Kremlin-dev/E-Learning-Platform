@@ -121,15 +121,17 @@ def uploadvid():
              connection.commit()
              cursor.close()
              connection.close()
+             message="Upload was successful"
 
-             return "File uploaded successfully!"
-        ##there will be a flash message here
+             return render_template('instructorPage.html')
+        else:
+            return "Upload Failed"
+        #there will be a flash message here
              
     return render_template('instructorPage.html')
 
-    return response
 
-    return render_template('videopage.html')
+
 
 
 

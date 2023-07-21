@@ -141,3 +141,5 @@ console.log(searchTerm);
     button.addEventListener('click', performSearch);
   });
   
+
+  
