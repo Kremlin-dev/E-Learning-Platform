@@ -10,6 +10,8 @@
 </head>
    
 <body>
+
+        
   <div class="flex-container">
     <div class="toggle-btn">
       <div id="gradient-btn"></div>
@@ -26,6 +28,11 @@
         <input type="hidden" name="role" value="student">
         <button  class="submit-btn">Sign Up</button>
     </form>
+                          
+        {% if error_message %}
+        <div class="error">{{ error_message }}</div>
+        {% endif %}
+    
     <form action="/signup" method="POST" id="tutor">
         <input name="first_name" type="text" placeholder="First Name" required>
         <input name="last_name"   type="text" placeholder="Last Name" required>
@@ -38,10 +45,11 @@
         <input name="file" type="file" placeholder="upload profile image">
         <input type="hidden" name="role" value="instructor">
         <button class="submit-btn">Sign Up</button>
+
     </form>
 
   </div>
-    
+  
     <script>
       const Student = document.getElementById("student");
       const Tutor = document.getElementById("tutor");

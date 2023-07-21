@@ -56,7 +56,7 @@ def signup():
                 return render_template('Signup.html', error_message=error_message)
         else:
             error_message="Invalid Role"    
-            return render_template('Signup.html', error_message=error_message)
+            return render_template('Signup.html', error_message=error_message) #not necessary, might remove it later
 
     return render_template('Signup.html')
 
@@ -121,17 +121,14 @@ def uploadvid():
              connection.commit()
              cursor.close()
              connection.close()
-             message="Upload was successful"
-
+             print("hello")
+            #  message="Upload was successful"
              return render_template('instructorPage.html')
         else:
             return "Upload Failed"
         #there will be a flash message here
              
     return render_template('instructorPage.html')
-
-
-
 
 
 

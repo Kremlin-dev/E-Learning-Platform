@@ -9,6 +9,10 @@
 </head>
     
 <body>
+
+        {% if error_message %}
+        <div class="error">{{ error_message }}</div>
+        {% endif %}
    <div class="main-container">
         <form action = "/login" method="POST">
             <p><i class="bi bi-person"></i> Log In</p><br>
