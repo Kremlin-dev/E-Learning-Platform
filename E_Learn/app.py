@@ -63,12 +63,12 @@ def signup():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method=='POST':
+        connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost") 
         email=request.form.get('email')
         password=request.form.get('password')
         
         if email and password:
-            connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost") 
-        
+           
             cursor = connection.cursor()
             query = "SELECT email, password FROM users WHERE email = %s AND password = %s"
 
@@ -76,13 +76,29 @@ def login():
             fetch_result=cursor.fetchone()
             cursor.close()
             connection.close()
-
             if fetch_result is not None:
-                # print("Hello")
-                return redirect('coursepage')
+                 print("Hello")
+                 return redirect('coursepage')
             else:
+                  print("HI")
                   error_message = "Invalid Email or Password"
                   return render_template('Login.html', error_message=error_message)
+
+        elif email and password:
+            cursor = connection.cursor()
+            query = "SELECT email, password FROM instructor WHERE e_mail = %s AND pass_word = %s"
+            cursor.execute(query, (email, password))
+            result=cursor.fetchone()
+            cursor.close()
+            connection.close()
+
+            if result is not None:
+                #  print("Hello")
+                 return redirect('coursepage')
+            else:
+                #   print("HI")
+                    error_message = "Invalid Email or Password"
+                    return render_template('Login.html', error_message=error_message)
 
                 # print("try again")
 
