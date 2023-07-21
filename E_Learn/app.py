@@ -1,5 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for,make_response
+from flask import Flask, render_template, request, redirect, url_for,make_response, send_file,Response
 import psycopg2
+import os
+import uuid
+
+
 
 # connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost") 
             
@@ -106,32 +110,58 @@ def coursepage():
 def instructorpage():
     return render_template('instructorPage.html')
 
-@app.route('/uploadvid', methods=['GET','POST'])
+@app.route('/uploadvid', methods=['POST'])
 def uploadvid():
-    if request.method =='POST':
+    if request.method == 'POST':
+        connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost") 
         video = request.files['video']
         videoname = video.filename
+
         if video:
-             file_data = video.read()
-             connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost") 
-             cursor = connection.cursor()
-             query = "INSERT INTO videos(videoname, file_data) VALUES (%s, %s)"
-             file_data = video.read()
-             cursor.execute(query, (videoname, file_data))
-             connection.commit()
-             cursor.close()
-             connection.close()
-             print("hello")
-            #  message="Upload was successful"
-             return render_template('instructorPage.html')
+          
+            filename = f"{str(uuid.uuid4())}.mp4"
+            upload_folder = r'D:\GITHUB\E-Learning-Platform\E_Learn\static\Videos'
+
+            file_path = os.path.join(upload_folder, filename)
+            video.save(file_path)
+
+            connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost") 
+            cursor = connection.cursor()
+            query = "INSERT INTO video(videoname, file_path) VALUES (%s, %s)"
+            cursor.execute(query, (videoname, file_path))
+            connection.commit()
+            return render_template('instructorPage.html') #there will be a flash here
         else:
             return "Upload Failed"
-        #there will be a flash message here
-             
+
     return render_template('instructorPage.html')
 
+@app.route('/play_video/<int:courseId>', methods=['GET'])
+def play_video(courseId):
+    connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost")
 
+    cursor = connection.cursor()
+    cursor.execute('SELECT file_path FROM video WHERE id = %s', (courseId,))
+    video_data = cursor.fetchone()
 
+    if video_data:
+        file_path = video_data[0]
+
+       # print(f"File path from database: {file_path}")
+        if os.path.exists(file_path):
+            try:
+              
+                with open(file_path, 'rb') as video_file:
+                    response = Response(video_file.read(), mimetype='video/mp4')
+                    response.headers['Content-Disposition'] = f'inline; filename=video_{courseId}.mp4'
+                    return response
+            except Exception as e:
+                return 'Error sending file', 500
+        else:
+            print("File not found on the file system.")
+            return 'File not found', 404
+
+    return 'Video not found', 404
 
 if __name__ == '__main__':
     app.run(debug=True)
