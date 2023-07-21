@@ -73,35 +73,24 @@ def login():
             query = "SELECT email, password FROM users WHERE email = %s AND password = %s"
 
             cursor.execute(query, (email, password))
-            fetch_result=cursor.fetchone()
+            fetch_user=cursor.fetchone()
+
+
+            query_instructor = "SELECT e_mail, pass_word FROM instructor WHERE e_mail = %s AND pass_word = %s"
+            cursor.execute(query_instructor, (email, password))
+            fetch_instructor = cursor.fetchone()
             cursor.close()
             connection.close()
-            if fetch_result is not None:
+            if fetch_user is not None:
                  print("Hello")
                  return redirect('coursepage')
+            elif fetch_instructor is not None:
+                print("Hello")
+                return redirect('instructorpage')
             else:
                   print("HI")
                   error_message = "Invalid Email or Password"
                   return render_template('Login.html', error_message=error_message)
-
-        elif email and password:
-            cursor = connection.cursor()
-            query = "SELECT email, password FROM instructor WHERE e_mail = %s AND pass_word = %s"
-            cursor.execute(query, (email, password))
-            result=cursor.fetchone()
-            cursor.close()
-            connection.close()
-
-            if result is not None:
-                #  print("Hello")
-                 return redirect('coursepage')
-            else:
-                #   print("HI")
-                    error_message = "Invalid Email or Password"
-                    return render_template('Login.html', error_message=error_message)
-
-                # print("try again")
-
 
     return render_template('login.html')
 
@@ -113,9 +102,19 @@ def coursepage():
 # def videopage():
 #     return render_template('video.html')
 
+@app.route('/instructorpage', methods=['GET','POST'])
+def instructorpage():
+    return render_template('instructorPage.html')
 
+@app.route('/uploadvid', methods=['GET','POST'])
+def uploadvid():
+    if request.method =='POST':
+        video = request.files('video')
+        filename = video.name
 
+        
 
+    return render_template('instructorPage.html')
 
 
 
