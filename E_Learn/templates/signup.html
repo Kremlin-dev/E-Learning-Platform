@@ -10,20 +10,25 @@
 </head>
    
 <body>
+    {% if error_message %}
+    <p class="error">{{ error_message }}</p>
+     {% endif %}
+
 
     <div class="flex-container">
         <div class="flex-items">
             <img src="../static/images/signup.jpg" alt="SignUpImg">
         </div>
-        
+       
+           
         <div class="flex-items">
-            <form action="/signup" method="get">
+            <form action="/signup" method="POST">
                 <p><i class="bi bi-person"></i>Sign Up</p><br>
                 <p id="already">Already signed up? <a href="" target="">Log In</a></p><br><br>
-                <input type="text" placeholder="First Name" required>
-                <input type="text" placeholder="Last Name" required><br><br>
-                <input type="email" placeholder="E-mail" required>
-                <input type="password" placeholder="Create a password"><br><br>
+                <input type="text" name="firstname" placeholder="First Name" required>
+                <input type="text" name="lastname" placeholder="Last Name" required><br><br>
+                <input type="email" name="email" placeholder="E-mail" required>
+                <input type="password" name="password" placeholder="Create a password"><br><br>
                 <input type="radio" name="SignUpOptions"><span id="profile">Sign Up as a tutor</span><br><br>
                 <input type="radio" name="SignUpOptions"><span id="profile">Sign Up as student</span><br><br><br>
                 <button class="btn">Sign Up</button>
