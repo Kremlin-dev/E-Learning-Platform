@@ -33,14 +33,33 @@ def signup():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    
+    if request.method=='POST':
+        email=request.form.get('email')
+        password=request.form.get('password')
+        
+        if email and password:
+            connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost") 
+        
+            cursor = connection.cursor()
+            query = "SELECT email, password FROM users WHERE email = %s AND password = %s"
+
+            cursor.execute(query, (email, password))
+            fetch_result=cursor.fetchone()
+            cursor.close()
+            connection.close()
+
+            if fetch_result is not None:
+                # print("Hello")
+                return redirect('coursepage')
+            else:
+                print("try again")
+
+
     return render_template('login.html')
 
 @app.route('/coursepage', methods=['GET', 'POST'])
 def coursepage():
     return render_template('coursepage.html')
-
-
 
 
 
