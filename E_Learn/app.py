@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for,make_response
 import psycopg2
 
 # connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost") 
@@ -109,12 +109,28 @@ def instructorpage():
 @app.route('/uploadvid', methods=['GET','POST'])
 def uploadvid():
     if request.method =='POST':
-        video = request.files('video')
-        filename = video.name
+        video = request.files['video']
+        videoname = video.filename
+        if video:
+             file_data = video.read()
+             connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost") 
+             cursor = connection.cursor()
+             query = "INSERT INTO videos(videoname, file_data) VALUES (%s, %s)"
+             file_data = video.read()
+             cursor.execute(query, (videoname, file_data))
+             connection.commit()
+             cursor.close()
+             connection.close()
 
-        
-
+             return "File uploaded successfully!"
+        ##there will be a flash message here
+             
     return render_template('instructorPage.html')
+
+    return response
+
+    return render_template('videopage.html')
+
 
 
 

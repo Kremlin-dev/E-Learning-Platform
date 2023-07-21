@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Player</title>
+</head>
+<body>
+    <h1>Video Player</h1>
+    <p>Click the link below to play the video:</p>
+    <a href="/playvideo">Play Video</a>
+
+    <!-- Optional video player element -->
+    <video id="videoPlayer" width="640" height="360" controls>
+        <source id="videoSource" src="" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <script>
+        // JavaScript to handle video playback
+        document.addEventListener("DOMContentLoaded", function() {
+            const videoPlayer = document.getElementById("videoPlayer");
+            const videoSource = document.getElementById("videoSource");
+            const playLink = document.querySelector("a[href='/playvideo']");
+
+            playLink.addEventListener("click", function(event) {
+                event.preventDefault();
+
+                // Make an AJAX request to retrieve the video from the server
+                fetch('/getvideo')
+                    .then(response => response.blob())
+                    .then(videoBlob => {
+                        const videoURL = URL.createObjectURL(videoBlob);
+                        videoSource.setAttribute("src", videoURL);
+                        videoPlayer.load();
+                        videoPlayer.play();
+                    })
+                    .catch(error => console.error('Error retrieving video:', error));
+            });
+        });
+    </script>
+</body>
+</html>
