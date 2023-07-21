@@ -4,62 +4,62 @@
 const courses = [
     {
       id:1,
-      thumbnail : '../static/images/css.avif',
+      thumbnail : '../../assets/css.avif',
       videoName : "Introduction to Css",
-      video : '../static/images/allison.mp4',
+      video : '../../assets/allison.mp4',
       description: "Cascading Style Sheets is a style sheet language used for describing the presentation of a document written in a markup language such as HTML.",
     },
 
     {
       id:2,
-      thumbnail : '../static/images/c++.png',
+      thumbnail : '../../assets/c++.png',
       videoName : "Learn C++ Programming",
-      video : '../static/images/allison.mp4',
+      video : '../../assets/allison.mp4',
       description: "C++ is an object-oriented programming language which gives a clear structure to programs and allows code to be reused, lowering development costs",
     },
     {
       id:3,
-      thumbnail : '../static/images/html.png',
+      thumbnail : '../../assets/html.png',
       videoName : "Introduction to html",
-      video : '../static/images/allison.mp4',
+      video : '../../assets/allison.mp4',
       description: "Cascading Style Sheets is a style sheet language used for describing the presentation of a document written in a markup language such as HTML.",
       
     },
     {
       id:4,
-      thumbnail : '../static/images/Java.png',
+      thumbnail : '../../assets/Java.png',
       videoName : "Introduction to java",
-      video : '../static/images/allison.mp4',
+      video : '../../assets/allison.mp4',
       description: "Cascading Style Sheets is a style sheet language used for describing the presentation of a document written in a markup language such as HTML.",
       
     },
     {
       id:5,
-      thumbnail : '../static/images/javascript.jpg',
+      thumbnail : '../../assets/javascript.jpg',
       videoName : "Introduction to javascript",
-      video : '../static/images/allison.mp4',
+      video : '../assets/allison.mp4',
       description: "Cascading Style Sheets is a style sheet language used for describing the presentation of a document written in a markup language such as HTML.",
      
     },
     {
       id:6,
-      thumbnail : '../static/images/php.png',
+      thumbnail : '../../assets/php.png',
       videoName : "Introduction to php",
-      video : '../static/images/allison.mp4',
+      video : '../../assets/allison.mp4',
       description: "Cascading Style Sheets is a style sheet language used for describing the presentation of a document written in a markup language such as HTML.",
       
     },
     {
       id:7,
-      thumbnail : '../static/images/python.png',
+      thumbnail : '../../assets/python.png',
       videoName : "Introduction to python",
       description: "Cascading Style Sheets is a style sheet language used for describing the presentation of a document written in a markup language such as HTML.",
     },
     {
       id:8,
-      thumbnail : '../static/images/c++.png',
-      videoName : "Introduction to C++",
-      video : '../static/images/allison.mp4',
+      thumbnail : '../../assets/c++.png',
+      videoName : "Introduction to Css",
+      video : '../../assets/allison.mp4',
       description: "Cascading Style Sheets is a style sheet language used for describing the presentation of a document written in a markup language such as HTML.",
       
     },
@@ -140,6 +140,4 @@ console.log(searchTerm);
   buttons.forEach(button => {
     button.addEventListener('click', performSearch);
   });
-  
-
   
