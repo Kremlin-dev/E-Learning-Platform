@@ -1,0 +1,70 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+*{
+    box-sizing: border-box;
+
+}
+
+#profile{
+    font-size: 19px;
+}
+i{
+    margin: 5px;
+}
+
+#already{
+    font-size: 17px;
+}
+p{
+    font-size: 27px;
+    text-align: center;
+    margin: 10px;
+}
+img{
+    width: 500px;
+}
+.flex-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 200px;
+    align-items: center;
+    width: 80%;
+    box-shadow: 4px 4px 4px 4px rgb(218, 214, 214);
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.flex-items{
+    margin: 10px;
+}
+form{
+    width: 100%;
+    border-top: 5px solid #19BD76;
+    padding: 20px 15px;
+    height: 400px;
+}
+
+input[type="text"], input[type="email"], input[type="password"]{
+    width: 49%;
+    padding: 10px;
+    font-size: 20px;
+    
+}
+
+.btn{
+    border-radius: 6px;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 20%;
+    padding: 10px;
+    font-size: 24px;
+    background-color: #19BD76;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
