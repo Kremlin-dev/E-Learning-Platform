@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for,make_response, send_file,Response
+from flask import Flask, render_template, request, redirect, url_for,make_response, send_file,Response,session
 import psycopg2
 import os  #imported because I will need it to check for the file existence on the file system.
 import uuid  #will be needed to give the vid a unique ID
@@ -8,6 +8,7 @@ import uuid  #will be needed to give the vid a unique ID
 # connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost") 
             
 app = Flask(__name__)
+app.secret_key = 'krem' 
 app.static_folder = 'static'
 
 @app.route('/')
@@ -67,18 +68,19 @@ def signup():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    
     if request.method=='POST':
         connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost") 
         email=request.form.get('email')
         password=request.form.get('password')
-        
+        instructor_email = email 
+        session['instructor_email'] = instructor_email
         if email and password:
            
             cursor = connection.cursor()
             query = "SELECT email, password FROM student WHERE email = %s AND password = %s"
-
             cursor.execute(query, (email, password))
-            fetch_user=cursor.fetchone()
+            fetch_student=cursor.fetchone()
 
 
             query_instructor = "SELECT e_mail, pass_word FROM instructor WHERE e_mail = %s AND pass_word = %s"
@@ -86,11 +88,15 @@ def login():
             fetch_instructor = cursor.fetchone()
             cursor.close()
             connection.close()
-            if fetch_user is not None:
-                 print("Hello")
-                 return redirect('coursepage')
+            
+            if fetch_student is not None:
+                session['student_email'] = email
+                return redirect('/coursepage')
+                 #print("Hello")
+
             elif fetch_instructor is not None:
-                print("Hello")
+                # print("Hello")
+                session['instructor_email'] = email
                 return redirect('instructorpage')
             else:
                   print("HI")
@@ -103,13 +109,25 @@ def login():
 def coursepage():
     return render_template('coursepage.html')
 
-# @app.route('/videopage', methods=['GET', 'POST'])
-# def videopage():
-#     return render_template('video.html')
-
-@app.route('/instructorpage', methods=['GET','POST'])
+@app.route('/instructorpage', methods=['GET'])
 def instructorpage():
-    return render_template('instructorPage.html')
+    instructor_email = session.get('instructor_email')
+    if not instructor_email:
+        return redirect('/login')
+
+    connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost")
+    cursor = connection.cursor()
+    query = "SELECT firstname, lastname, e_mail, nationality, speciality, year_of_experience FROM instructor WHERE e_mail = %s"
+    cursor.execute(query, (instructor_email,))
+    instructor_info = cursor.fetchone()
+    cursor.close()
+    connection.close()
+
+    if instructor_info:
+        firstname, lastname, email, nationality, speciality, year_of_experience = instructor_info
+        return render_template('instructorpage.html', firstname=firstname, lastname=lastname, email=email, nationality=nationality, speciality=speciality, year_of_experience=year_of_experience)
+    else:
+         return render_template('instructorpage.html', message="Instructor data not found.")
 
 @app.route('/uploadvid', methods=['POST'])
 def uploadvid():
@@ -167,35 +185,56 @@ def play_video(courseId):
 
     return 'Video not found'
 
-@app.route('/editprofile', methods=['GET', 'POST'])  #This route will be well configured after presentation, for now it works fine as it should
+@app.route('/editprofile', methods=['GET', 'POST'])
 def editprofile():
-     if request.method=='POST':
+    instructor_email = session.get('instructor_email')
+    if not instructor_email:
+        
+        return redirect('/login')
+
+    if request.method == 'POST':
         connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost")
 
-        firstname=request.form.get('fname')
-        lastname=request.form.get('lname')
-        Old_email=request.form.get('Old_email')
-        New_email=request.form.get('New_email')
-        nationality=request.form.get('nationality')
-        speciality=request.form.get('specialization')
-        year_of_experience=request.form.get('yearExperience')
-        print(year_of_experience)
+        firstname = request.form.get('fname')
+        lastname = request.form.get('lname')
+        New_email = request.form.get('New_email')
+        nationality = request.form.get('nationality')
+        speciality = request.form.get('specialization')
+        year_of_experience = request.form.get('yearExperience')
 
-        if Old_email:
+        if instructor_email:
             cursor = connection.cursor()
             query = "UPDATE instructor SET firstname = %s, lastname = %s, e_mail = %s, nationality = %s, speciality = %s, year_of_experience = %s WHERE e_mail = %s"
-            cursor.execute(query, (firstname, lastname, New_email, nationality, speciality, year_of_experience, Old_email))
+            cursor.execute(query, (firstname, lastname, New_email, nationality, speciality, year_of_experience, instructor_email))
             connection.commit()
             cursor.close()
             connection.close()
         else:
-            print("Old Email doesn't exits")  #i will flash this   
-     return render_template('instructorpage.html')
+            print("Instructor email not found in the session.")  
 
-@app.route('/show_instructor_details', methods=['GET', 'POST'])
+    return redirect('/instructorpage')
+
+
+@app.route('/show_instructor_details', methods=['GET'])
 def show_instructor_details():
-     
-     return render_template('instructorpage.html')
+    instructor_email = session.get('instructor_email')
+    if not instructor_email:
+      
+        return redirect('/login')
+
+    connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost")
+    cursor = connection.cursor()
+    query = "SELECT firstname, lastname, e_mail, nationality, speciality, year_of_experience FROM instructor WHERE e_mail = %s"
+    cursor.execute(query, (instructor_email,))
+    instructor_info = cursor.fetchone()
+    cursor.close()
+    connection.close()
+
+    if instructor_info:
+        firstname, lastname, email, nationality, speciality, year_of_experience = instructor_info
+        return render_template('instructorpage.html', firstname=firstname, lastname=lastname, email=email, nationality=nationality, speciality=speciality, year_of_experience=year_of_experience)
+    else:
+        return print("Instructor page not found")
 
 
 
