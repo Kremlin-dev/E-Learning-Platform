@@ -99,7 +99,7 @@ def login():
                 session['instructor_email'] = email
                 return redirect('instructorpage')
             else:
-                  print("HI")
+                #   print("HI")
                   error_message = "Invalid Email or Password"
                   return render_template('Login.html', error_message=error_message)
 
@@ -209,17 +209,38 @@ def editprofile():
             connection.commit()
             cursor.close()
             connection.close()
+            session['instructor_email'] = New_email
+            return redirect('/show_instructor_details')
         else:
             print("Instructor email not found in the session.")  
 
     return redirect('/instructorpage')
 
 
+@app.route('/reset_password', methods=['POST'])
+def reset_password():
+    instructor_email = session.get('instructor_email')
+    connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost")
+    old_password=request.form.get('old-password')
+    new_password=request.form.get('new-password')
+    confirm_password=request.form.get('confirm-password')
+
+    if old_password:
+         
+         cursor = connection.cursor()
+         query = "UPDATE instructor SET pass_word = %s, cpassword  = %s  WHERE e_mail = %s"
+         cursor.execute(query, (new_password, confirm_password, instructor_email))
+         connection.commit()
+         cursor.close()
+         connection.close()
+         return redirect('/show_instructor_details')
+    return render_template('instructorpage.html')
+
+
 @app.route('/show_instructor_details', methods=['GET'])
 def show_instructor_details():
     instructor_email = session.get('instructor_email')
     if not instructor_email:
-      
         return redirect('/login')
 
     connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost")
@@ -234,9 +255,7 @@ def show_instructor_details():
         firstname, lastname, email, nationality, speciality, year_of_experience = instructor_info
         return render_template('instructorpage.html', firstname=firstname, lastname=lastname, email=email, nationality=nationality, speciality=speciality, year_of_experience=year_of_experience)
     else:
-        return print("Instructor page not found")
-
-
+        return render_template('instructorpage.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -38,10 +38,11 @@
             <div id="container-body">
                 <div id="person-info">
                     <img src="../static/images/profile.png" alt="" srcset="">
-                    <h3>James Roberts</h3>
-                    <h5>Graphic Designer</h5>
-                    <h5>Ghana</h5>
+                    <h3>{{ firstname }} {{ lastname }}</h3>
+                    <h5>{{ speciality }}</h5>
+                    <h5>{{ nationality }}</h5>
                 </div>
+                
 
                 <div id="person-details">
                     <div class="details"><span class="detail-info">Name</span><span class="colon">:</span><span id="name">{{ firstname }} {{ lastname }}</span></div>
@@ -83,14 +84,14 @@
                     RESET PASSWORD
  -->
 
-  <form action="" method="post" id="reset-password">
+  <form action="/reset_password" method="POST" id="reset-password">
 
     <label for="old-password" class="labels">Enter old password</label><br>
     <input type="password" name="old-password" id="old-password" class="area"><br>
     <label for="new-password" class="labels">Enter new password</label><br>
     <input type="password" name="new-password" id="new-password" class="area"><br>
     <label for="confirm-password" class="labels">Confirm password</label><br>
-    <input type="password" name="confim-password" id="confirm-password" class="area"><br>
+    <input type="password" name="confirm-password" id="confirm-password" class="area"><br>
     
     <div id="btns">
         <button type="submit"  class="discard">Discard</button>
