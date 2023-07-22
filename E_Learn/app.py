@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for,make_response, send_file,Response
 import psycopg2
-import os
-import uuid
+import os  #imported because I will need it to check for the file existence on the file system.
+import uuid  #will be needed to give the vid a unique ID
 
 
 
