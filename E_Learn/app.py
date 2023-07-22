@@ -27,7 +27,7 @@ def signup():
             c_password=request.form.get('cpassword')
             
             cursor = connection.cursor()
-            query= "INSERT INTO users(first_name, last_name, email, password, c_password)VALUES(%s, %s, %s, %s, %s)"
+            query= "INSERT INTO student(first_name, last_name, email, password, c_password)VALUES(%s, %s, %s, %s, %s)"
             try:
                 cursor.execute(query,(first_name, last_name, email, password, c_password))
                 connection.commit()
@@ -42,16 +42,17 @@ def signup():
             lastname=request.form.get('last_name')
             e_mail=request.form.get('E-mail')
             nationality=request.form.get('nationality')
-            speciality=request.form.get('specilization')
-            YoE=request.form.get('YearExperience')
+            speciality=request.form.get('specialization')
+            year_of_experience=request.form.get('YearExperience')
             pass_word=request.form.get('pass_word')
             cpassword=request.form.get('cpass_word')
             file=request.form.get('file')
+            print(speciality)
 
             cursor = connection.cursor()
-            query= "INSERT INTO instructor(firstname, lastname, e_mail, nationality, speciality, YoE, pass_word, cpassword, file)VALUES(%s, %s, %s, %s, %s,%s, %s, %s, %s)"
+            query= "INSERT INTO instructor(firstname, lastname, e_mail, nationality, speciality, year_of_experience, pass_word, cpassword, file)VALUES(%s, %s, %s, %s, %s,%s, %s, %s, %s)"
             try:
-                cursor.execute(query,(firstname, lastname, e_mail, nationality, speciality, YoE, pass_word, cpassword, file))
+                cursor.execute(query,(firstname, lastname, e_mail, nationality, speciality, year_of_experience, pass_word, cpassword, file))
                 connection.commit()
                 cursor.close()
                 return redirect('login')
@@ -74,7 +75,7 @@ def login():
         if email and password:
            
             cursor = connection.cursor()
-            query = "SELECT email, password FROM users WHERE email = %s AND password = %s"
+            query = "SELECT email, password FROM student WHERE email = %s AND password = %s"
 
             cursor.execute(query, (email, password))
             fetch_user=cursor.fetchone()
@@ -115,20 +116,23 @@ def uploadvid():
     if request.method == 'POST':
         connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost") 
         video = request.files['video']
-        videoname = video.filename
+        title=request.form.get('title')
+        description=request.form.get('title')
 
-        if video:
+        # videoname = video.filename
+
+        if video and title:
           
-            filename = f"{str(uuid.uuid4())}.mp4"
+            filename = f"{title.replace(' ', '_').lower()}.mp4"
             upload_folder = r'D:\GITHUB\E-Learning-Platform\E_Learn\static\Videos'
 
             file_path = os.path.join(upload_folder, filename)
             video.save(file_path)
 
-            connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost") 
+            # connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost") 
             cursor = connection.cursor()
-            query = "INSERT INTO video(videoname, file_path) VALUES (%s, %s)"
-            cursor.execute(query, (videoname, file_path))
+            query = "INSERT INTO video(title, description, file_path) VALUES (%s, %s ,%s)"
+            cursor.execute(query, (title, description,file_path))
             connection.commit()
             return render_template('instructorPage.html') #there will be a flash here
         else:
@@ -141,7 +145,7 @@ def play_video(courseId):
     connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost")
 
     cursor = connection.cursor()
-    cursor.execute('SELECT file_path FROM video WHERE id = %s', (courseId,))
+    cursor.execute('SELECT file_path FROM video WHERE video_id = %s', (courseId,))
     video_data = cursor.fetchone()
 
     if video_data:
@@ -162,6 +166,38 @@ def play_video(courseId):
             return 'File not found'
 
     return 'Video not found'
+
+@app.route('/editprofile', methods=['GET', 'POST'])  #This route will be well configured after presentation, for now it works fine as it should
+def editprofile():
+     if request.method=='POST':
+        connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost")
+
+        firstname=request.form.get('fname')
+        lastname=request.form.get('lname')
+        Old_email=request.form.get('Old_email')
+        New_email=request.form.get('New_email')
+        nationality=request.form.get('nationality')
+        speciality=request.form.get('specialization')
+        year_of_experience=request.form.get('yearExperience')
+        print(year_of_experience)
+
+        if Old_email:
+            cursor = connection.cursor()
+            query = "UPDATE instructor SET firstname = %s, lastname = %s, e_mail = %s, nationality = %s, speciality = %s, year_of_experience = %s WHERE e_mail = %s"
+            cursor.execute(query, (firstname, lastname, New_email, nationality, speciality, year_of_experience, Old_email))
+            connection.commit()
+            cursor.close()
+            connection.close()
+        else:
+            print("Old Email doesn't exits")  #i will flash this   
+     return render_template('instructorpage.html')
+
+@app.route('/show_instructor_details', methods=['GET', 'POST'])
+def show_instructor_details():
+     
+     return render_template('instructorpage.html')
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

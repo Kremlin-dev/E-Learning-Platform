@@ -1,14 +1,14 @@
 // Define the courses array with the course data
 const courses = [
     {
-      id: 7,
+      id: 1,
       thumbnail: '../static/images/css.avif',
       videoName: "Introduction to Css",
       video: '../static/images/allison.mp4',
       description: "Cascading Style Sheets is a style sheet language used for describing the presentation of a document written in a markup language such as HTML.",
     },
     {
-      id: 7,
+      id: 2,
       thumbnail: '../static/images/c++.png',
       videoName: "Learn C++ Programming",
       video: '../static/images/allison.mp4',

@@ -48,25 +48,29 @@
                     <div class="details"><span class="detail-info">Age</span>  <span class="colon">:</span><span id="interest">26</span></div>
                     <div class="details"><span class="detail-info">Email</span>  <span class="colon">:</span><span id="email">jamesroberts@gmail.com</span></div>
                     <div class="details"><span class="detail-info">Specialty</span>  <span class="colon">:</span><span id="specialty">Graphic Designer</span></div>
-                    <div class="details"><span class="detail-info">Years of Experience</span>  <span class="colon">:</span><span id="occupation">Freelancer</span></div>
+                    <div class="details"><span class="detail-info">YearsExperience</span>  <span class="colon">:</span><span id="occupation">5</span></div>
                     <div class="details"><span class="detail-info">Country</span>  <span class="colon">:</span><span id= "nationality">Ghanaian</span></div>
                 </div>
             </div>
 
             <!-- EDIT PROFILE PAGE -->
 
-            <form action="" method="post" id="edit-profile">
+            <form action="/editprofile" method="post" id="edit-profile">
                 <label for="fname" class="labels">First name</label><br>
                 <input type="text" name="fname" id="fname" class="area" value="James"><br>
                 <label for="lname" class="labels">Last name</label><br>
                 <input type="text" name="lname" id="lname" class="area" value="Roberts"><br>
-                <label for="age" class="labels">Age</label><br>
-                <input type="number" min="0" name="age" id="age" class="area" value="26"><br>
-                <label for="email" class="labels">Email</label><br>
-                <input type="email" name="email" id="email" class="area" value="jamesrobertsgmail.com"><br>
+                <label for="Old_email" class="labels">Old Email</label><br>
+                <input type="email" name="Old_email" id="Old_email" class="area" value="jamesroberts@gmail.com"><br>
+                <label for="New_email" class="labels">New Email</label><br>
+                <input type="email" name="New_email" id="New_email" class="area" value=""><br>
                 <label for="nationality" class="labels">Nationality</label><br>
-                <input type="text" name="nationality" id="nationality" class="area" value="Ghanaian"><br>
-                
+                <input type="text" name="nationality" id="nationality" class="area" value="Ghanaian"><br> 
+                <label for="specialization" class="labels">Specialization</label><br>
+                <input type="text" name="specialization" id="specialization" class="area" value="C++"><br> 
+                <label for="yearExperience" class="labels">Years of Expereince</label><br>
+                <input type="text" name="yearExperience" id="yearExperience" class="area" value=""><br> 
+
                 <div id="btns">
                     <button type="submit"  class="discard">Discard</button>
                     <button type="submit"  class="save">Save</button>
@@ -103,11 +107,11 @@
    <form action="/uploadvid" method="POST" id="upload-video"  enctype="multipart/form-data">
     <div>
       <label for="title" class="labels">Course Title</label><br>
-      <input type="text"  id="title" class= "area">
+      <input name="title" type="text"  id="title" class= "area">
     </div>   
     <div class="description">
       <label for="description" class="labels">Description</label><br>
-       <textarea id="description" cols="20" rows="6" placeholder="Enter Details...">
+       <textarea name="description" id="description" cols="20" rows="6" placeholder="Enter Details...">
       </textarea>
     </div> 
     <div id= "upload">
