@@ -8,7 +8,7 @@ const courses = [
       description: "Cascading Style Sheets is a style sheet language used for describing the presentation of a document written in a markup language such as HTML.",
     },
     {
-      id: 6,
+      id: 7,
       thumbnail: '../static/images/c++.png',
       videoName: "Learn C++ Programming",
       video: '../static/images/allison.mp4',

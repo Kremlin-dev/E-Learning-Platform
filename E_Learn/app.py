@@ -156,12 +156,12 @@ def play_video(courseId):
                     response.headers['Content-Disposition'] = f'inline; filename=video_{courseId}.mp4'
                     return response
             except Exception as e:
-                return 'Error sending file', 500
+                return 'Error sending file'
         else:
-            print("File not found on the file system.")
-            return 'File not found', 404
+            print("File not found on the file system.") #debugging sake
+            return 'File not found'
 
-    return 'Video not found', 404
+    return 'Video not found'
 
 if __name__ == '__main__':
     app.run(debug=True)
