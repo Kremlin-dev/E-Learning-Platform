@@ -136,7 +136,7 @@ def uploadvid():
         connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost") 
         video = request.files['video']
         title=request.form.get('title')
-        description=request.form.get('title')
+        description=request.form.get('description')
 
         # videoname = video.filename
 
