@@ -260,4 +260,4 @@ def show_instructor_details():
         return render_template('instructorpage.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='172.20.10.5', port=5000, debug=True)
