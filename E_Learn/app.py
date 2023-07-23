@@ -132,6 +132,7 @@ def instructorpage():
 @app.route('/uploadvid', methods=['POST'])
 def uploadvid():
     if request.method == 'POST':
+        instructor_email = session.get('instructor_email')
         connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost") 
         video = request.files['video']
         title=request.form.get('title')
@@ -152,9 +153,10 @@ def uploadvid():
             query = "INSERT INTO video(title, description, file_path) VALUES (%s, %s ,%s)"
             cursor.execute(query, (title, description,file_path))
             connection.commit()
-            return render_template('instructorPage.html') #there will be a flash here
-        else:
-            return "Upload Failed"
+            cursor.close()
+            connection.close()
+            return redirect('/show_instructor_details') 
+        return "Upload Failed"
 
     return render_template('instructorPage.html')
 
