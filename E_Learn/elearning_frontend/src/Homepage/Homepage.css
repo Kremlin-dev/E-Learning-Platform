@@ -10,6 +10,9 @@
     --color-green: #008080;
     
 }
+html{
+  scroll-behavior: smooth;
+}
 /*========General styling=============*/
 
 a{
@@ -170,8 +173,9 @@ nav ul li:hover{
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
-  width: 100%;
   text-align: center;
+  color: #323131;
+  width: 100%;
 }
 .app__services-section_container{
   display: flex;
@@ -192,10 +196,9 @@ nav ul li:hover{
 }
 
 .app__services-section_container article{
-
-  margin: 0 10px;
-  border-radius: 10px;
+  margin: 0 20px;
   text-align: center;
+  min-width: 300px;
 }
 .app__services-section_container p,
 .services-text{
@@ -209,7 +212,71 @@ nav ul li:hover{
   margin-left: 110px;
 }
 /*============end of services ===========*/
+.online_class{
+  display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 20px;
+ margin-top: 100px;
+ color: #323131;
+}
+.online_class-image{
+  width: 550px;
+  height: 300px;
+  overflow: hidden;
+  cursor: pointer;
+  border-top-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+  
+}
+.online_class-image img,
+.study-group-image img{
+ width: 100%;
+ transition: 400ms ease-in-out;
+}
+.online_class img:hover,
+.study-group-image img:hover{
+  transform: scale(1.2);
+}
+.subtext{
+ color: #008080;
+ font-weight: 700;
+}
+.online_class button, 
+.group_study button{
+  background-color: #008080;
+  padding: 5px 10px;
+  margin-top: 20px;
+  color: #fff;
+  border: 2px solid #008080;
+  transition: 400ms ease-in-out;
+}
+.online_class button:hover, 
+.group_study button:hover{
+  background-color: #fff;
+  color: #000;
 
+}
+
+.study-group-image{
+  width: 550px;
+  height: 300px;
+  overflow: hidden;
+  cursor: pointer;
+  border-top-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+.online_class h2, .group_study h2{
+  margin: 10px 0;
+  font-weight: 700;
+}
+/*Online classs==============*/
+.group_study{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 100px;
+  gap: 30px;
+  color: #323131;
+}
 
 /*===============footer styles=================*/
 footer{
@@ -220,6 +287,31 @@ footer{
  gap: 20px;
 }
 
+@media screen and (max-width:1250px){
+  .online_class-image{
+    width: 450px;
+    height: 300px;
+  }
+
+    .online_class h2, .group_study h2{
+      margin: 10px 0;
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 30px;
+    }
+}
+@media screen and (max-width: 1050px){
+  .online_class{
+    grid-template-columns: 40% 60%;
+  }
+  .group_study{
+    grid-template-columns: 60% 40%;
+  }
+  .online_class-image, .study-group-image{
+    width: 300px;
+    height: 500px;
+  }
+}
 
 @media screen and (max-width:950px){
   .app__header-menu{
@@ -246,13 +338,6 @@ footer{
     font-size: 36px;
     line-height: 50px;
   }
-  .app__courses-container{
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-  .app__courses-container article{
-    width: 100%;
-  }
   .section__padding{
     padding:4rem 2rem;
   }
@@ -268,6 +353,15 @@ footer{
     font-size: 28px;
     line-height: 38px;
   }
+  .online_class, .group_study{
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 20px;
+  }
+  .online_class-image, .study-group-image{
+     width: 100%;
+
+  }
 }
 @media screen and(max-width: 550px){
   .app__header-smallscreen_menu{
@@ -281,13 +375,6 @@ footer{
    
 }
 @media screen and (max-width: 530px){
-  .app__courses-container{
-    display: flex;
-    flex-direction: column;
-  }
-  .app__courses-container article video{
-   width: 100%;
-  }
   footer{
     grid-template-columns: 1fr;
     gap: 30px;
