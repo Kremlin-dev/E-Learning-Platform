@@ -76,6 +76,30 @@ form input{
     font-size: 18px;
     background: transparent;
 }
+.profile-picture-btn{
+    position: relative;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 3px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+    overflow: hidden;
+    color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 1px solid rgb(64, 63, 63);
+}
+.profile-picture-btn input[type="file"]{
+    position: absolute;
+    cursor: pointer;
+    left: 0;
+    top: 0;
+    transform: scale(3);
+    opacity: 0;
+}
 .submit-btn{
     padding: 10px 40px;
     border: 0;

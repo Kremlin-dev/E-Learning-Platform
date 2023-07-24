@@ -23,8 +23,14 @@
         <input name="firstname" type="text" placeholder="First Name" required>
         <input name="lastname"  type="text" placeholder="Last Name" required>
         <input name="email" type="email" placeholder="E-mail" required>
+        <input name="nationality" type="text" placeholder="Nationality" required>
         <input name="password" type="password" placeholder="Create a password">
         <input name="cpassword"  type="password" placeholder="comfirm password">
+        <button type="button" class="profile-picture-btn"> 
+        <i class="fa-solid fa-arrow-up-from-bracket"></i>
+         Upload pofile picture
+        <input name="student_file" type="file" >
+        </button>
         <input type="hidden" name="role" value="student">
         <button  class="submit-btn">Sign Up</button>
     </form>
@@ -42,14 +48,16 @@
         <input name="YearExperience" type="text" placeholder="Years of experience" required>
         <input name="pass_word" type="password" placeholder="Create a password" required>
         <input name="cpass_word" type="password" placeholder="Confirm password" required>
-        <input name="file" type="file" placeholder="upload profile image">
+        <button type="button" class="profile-picture-btn"> 
+          <i class="fa-solid fa-arrow-up-from-bracket"></i>
+          Upload pofile picture
+          <input name="instructor_file" type="file" >
+        </button>
         <input type="hidden" name="role" value="instructor">
         <button class="submit-btn">Sign Up</button>
-
     </form>
 
   </div>
-  
     <script>
       const Student = document.getElementById("student");
       const Tutor = document.getElementById("tutor");
@@ -73,6 +81,8 @@
 
 
     </script>
+    <script src="https://kit.fontawesome.com/9c854c6a40.js" crossorigin="anonymous"></script>
+
     
 </body>
 </html>

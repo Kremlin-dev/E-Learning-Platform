@@ -18,7 +18,7 @@ def index():
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    if request.method=='POST':
+    if request.method == 'POST':
         os.environ["DATABASE_URL"] = "postgres://zgfjlokh:tm0LNUdachJpQt7s-Lh0izMRGzzsJolf@dumbo.db.elephantsql.com/zgfjlokh"
         up.uses_netloc.append("postgres")
         url = up.urlparse(os.environ["DATABASE_URL"])
@@ -31,50 +31,51 @@ def signup():
 )
         role = request.form.get('role')
         if role == 'student':
-            first_name=request.form.get('firstname')
-            last_name=request.form.get('lastname')
-            email=request.form.get('email')
-            password=request.form.get('password')
-            c_password=request.form.get('cpassword')
-            
-            cursor = connection.cursor()
-            query= "INSERT INTO student(first_name, last_name, email, password, c_password)VALUES(%s, %s, %s, %s, %s)"
-            try:
-                cursor.execute(query,(first_name, last_name, email, password, c_password))
-                connection.commit()
-                cursor.close()
-                return redirect('login')
-            except  psycopg2.errors.UniqueViolation:
-                error_message = "Email already exists. Please use a different email address."
-                return render_template('Signup.html', error_message=error_message)
-            
-        elif role == 'instructor':
-            firstname=request.form.get('first_name')
-            lastname=request.form.get('last_name')
-            e_mail=request.form.get('E-mail')
-            nationality=request.form.get('nationality')
-            speciality=request.form.get('specialization')
-            year_of_experience=request.form.get('YearExperience')
-            pass_word=request.form.get('pass_word')
-            cpassword=request.form.get('cpass_word')
-            file=request.form.get('file')
-            print(speciality)
+            first_name = request.form.get('firstname')
+            last_name = request.form.get('lastname')
+            email = request.form.get('email')
+            nationality = request.form.get('nationality')
+            password = request.form.get('password')
+            c_password = request.form.get('cpassword')
 
             cursor = connection.cursor()
-            query= "INSERT INTO instructor(firstname, lastname, e_mail, nationality, speciality, year_of_experience, pass_word, cpassword, file)VALUES(%s, %s, %s, %s, %s,%s, %s, %s, %s)"
+            query = "INSERT INTO students(first_name, last_name, nationality, email, password, c_password) VALUES (%s, %s, %s, %s, %s, %s)"
             try:
-                cursor.execute(query,(firstname, lastname, e_mail, nationality, speciality, year_of_experience, pass_word, cpassword, file))
+                cursor.execute(query, (first_name, last_name, nationality, email, password, c_password))
                 connection.commit()
                 cursor.close()
                 return redirect('login')
-            except  psycopg2.errors.UniqueViolation:
+            except psycopg2.errors.UniqueViolation:
                 error_message = "Email already exists. Please use a different email address."
                 return render_template('Signup.html', error_message=error_message)
-        else:
-            error_message="Invalid Role"    
-            return render_template('Signup.html', error_message=error_message) #not necessary, might remove it later
+
+        elif role == 'instructor':
+            firstname = request.form.get('first_name')
+            lastname = request.form.get('last_name')
+            email = request.form.get('E-mail')
+            nationality = request.form.get('nationality')
+            speciality = request.form.get('specialization')
+            year_of_experience = request.form.get('YearExperience')
+            pass_word = request.form.get('pass_word')
+            cpassword = request.form.get('cpass_word')
+
+            cursor = connection.cursor()
+            query = "INSERT INTO instructors(first_name, last_name, email, nationality, speciality, year_of_experience, pass_word, cpassword) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+            try:
+                cursor.execute(query, (firstname, lastname, email, nationality, speciality, year_of_experience, pass_word, cpassword))
+                connection.commit()
+                cursor.close()
+                return redirect('login')
+            except psycopg2.errors.UniqueViolation:
+                error_message = "Email already exists. Please use a different email address."
+                return render_template('Signup.html', error_message=error_message)
+
+        # else:
+        #     error_message = "Invalid Role"
+        #     return render_template('Signup.html', error_message=error_message) # not necessary, might remove it later
 
     return render_template('Signup.html')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -97,12 +98,12 @@ def login():
         if email and password:
            
             cursor = connection.cursor()
-            query = "SELECT email, password FROM student WHERE email = %s AND password = %s"
+            query = "SELECT email, password FROM students WHERE email = %s AND password = %s"
             cursor.execute(query, (email, password))
             fetch_student=cursor.fetchone()
 
 
-            query_instructor = "SELECT e_mail, pass_word FROM instructor WHERE e_mail = %s AND pass_word = %s"
+            query_instructor = "SELECT email, pass_word FROM instructors WHERE email = %s AND pass_word = %s"
             cursor.execute(query_instructor, (email, password))
             fetch_instructor = cursor.fetchone()
             cursor.close()
@@ -110,8 +111,8 @@ def login():
             
             if fetch_student is not None:
                 session['student_email'] = email
-                return redirect('/coursepage')
-                 #print("Hello")
+                return redirect('/studentprofile')
+                #print("Hello")
 
             elif fetch_instructor is not None:
                 # print("Hello")
@@ -146,7 +147,7 @@ def instructorpage():
     )
      
     cursor = connection.cursor()
-    query = "SELECT firstname, lastname, e_mail, nationality, speciality, year_of_experience FROM instructor WHERE e_mail = %s"
+    query = "SELECT first_name, last_name, email, nationality, speciality, year_of_experience FROM instructors WHERE email = %s"
     cursor.execute(query, (instructor_email,))
     instructor_info = cursor.fetchone()
     cursor.close()
@@ -190,8 +191,8 @@ def uploadvid():
 
             # connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost") 
             cursor = connection.cursor()
-            query = "INSERT INTO video(title, description, file_path) VALUES (%s, %s ,%s)"
-            cursor.execute(query, (title, description,file_path))
+            query = "INSERT INTO videos(title, description, file_path,  instructor_email) VALUES (%s, %s ,%s, %s)"
+            cursor.execute(query, (title, description,file_path,  instructor_email))
             connection.commit()
             cursor.close()
             connection.close()
@@ -214,7 +215,7 @@ def play_video(courseId):
 )
 
     cursor = connection.cursor()
-    cursor.execute('SELECT file_path FROM video WHERE video_id = %s', (courseId,))
+    cursor.execute('SELECT file_path FROM videos WHERE video_id = %s', (courseId,))
     video_data = cursor.fetchone()
 
     if video_data:
@@ -263,7 +264,7 @@ def editprofile():
 
         if instructor_email:
             cursor = connection.cursor()
-            query = "UPDATE instructor SET firstname = %s, lastname = %s, e_mail = %s, nationality = %s, speciality = %s, year_of_experience = %s WHERE e_mail = %s"
+            query = "UPDATE instructors SET first_name = %s, last_name = %s, email = %s, nationality = %s, speciality = %s, year_of_experience = %s WHERE email = %s"
             cursor.execute(query, (firstname, lastname, New_email, nationality, speciality, year_of_experience, instructor_email))
             connection.commit()
             cursor.close()
@@ -296,7 +297,7 @@ def reset_password():
     if old_password:
          
          cursor = connection.cursor()
-         query = "UPDATE instructor SET pass_word = %s, cpassword  = %s  WHERE e_mail = %s"
+         query = "UPDATE instructors SET pass_word = %s, cpassword  = %s  WHERE email = %s"
          cursor.execute(query, (new_password, confirm_password, instructor_email))
          connection.commit()
          cursor.close()
@@ -322,7 +323,7 @@ def show_instructor_details():
     port=url.port
 )
     cursor = connection.cursor()
-    query = "SELECT firstname, lastname, e_mail, nationality, speciality, year_of_experience FROM instructor WHERE e_mail = %s"
+    query = "SELECT first_name, last_name, email, nationality, speciality, year_of_experience FROM instructors WHERE email = %s"
     cursor.execute(query, (instructor_email,))
     instructor_info = cursor.fetchone()
     cursor.close()
@@ -333,6 +334,45 @@ def show_instructor_details():
         return render_template('instructorpage.html', firstname=firstname, lastname=lastname, email=email, nationality=nationality, speciality=speciality, year_of_experience=year_of_experience)
     else:
         return render_template('instructorpage.html')
+    
+
+@app.route('/studentprofile', methods=['GET', 'POST'])
+def studentprofile():
+    student_email = session.get('student_email')
+    if not student_email:
+        return redirect('/login')
+
+    if request.method == 'POST':
+        os.environ["DATABASE_URL"] = "postgres://zgfjlokh:tm0LNUdachJpQt7s-Lh0izMRGzzsJolf@dumbo.db.elephantsql.com/zgfjlokh"
+        up.uses_netloc.append("postgres")
+        url = up.urlparse(os.environ["DATABASE_URL"])
+        connection = psycopg2.connect(
+        database=url.path[1:],
+        user=url.username,
+        password=url.password,
+        host=url.hostname,
+        port=url.port
+)
+        firstname = request.form.get('fname')
+        lastname = request.form.get('lname')
+        new_email = request.form.get('New_email')
+      
+
+        if student_email:
+            cursor = connection.cursor()
+           
+            query = "UPDATE students SET first_name = %s, last_name = %s, email = %s, WHERE email = %s"
+            cursor.execute(query, (firstname, lastname, new_email, student_email))
+            connection.commit()
+            cursor.close()
+            connection.close()
+            session['student_email'] = new_email
+            return render_template('Student.html')
+        else:
+            print("User email not found in the session.")
+
+    return render_template('Student.html')
+
 
 if __name__ == '__main__':
     app.run(host='172.20.10.5', port=5000, debug=True)

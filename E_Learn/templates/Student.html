@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/Student.css">
+    <title>Profile page</title>
+</head>
+<body>
+   <div id="main-container">
+    <header>
+        <div id="minor-nav">
+            <div id="profile-icon">
+              <a href="../templates/Student.html"><i class="fa-regular fa-user"></i> My Profile</a>  
+            </div>
+            <div id="num-views">
+            <h1 class="text-4xl"><a href="../templates/Homepage.html">LoGo</a></h1>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div id="profile-container">
+            <div id="container-head">
+                <li>
+                    <ul> <i class="fa-regular fa-user"></i><a href="#" id ="profilebtn"class="nav-icons" style="color:  #06c4c4">Profile</a> </ul>
+                    <ul><i class="fa-sharp fa-regular fa-address-card"></i><a href="#" class="nav-icons">Edit Profile</a> </ul>
+                    <ul><i class="fa-sharp fa-solid fa-arrow-down-up-lock"></i><a href="#" class="nav-icons">Change Password</a> </ul>
+                    <ul><i class="fa-solid fa-arrow-up-from-bracket"></i><a href="{{ url_for('coursepage') }}" class="nav-icons">View courses</a> </ul>
+
+                </li>             
+            </div>
+
+            <!-- PROFILE -->
+
+            <div id="container-body">
+                <div id="person-info">
+                    <img src="../static/images/student.jpg" alt="" srcset="">
+                    <h3>Larra Bens</h3>
+                    <h5>Student</h5>
+                    <h5>Ghana</h5>
+                </div>
+
+                <div id="person-details">
+                    <div class="details"><span class="detail-info">Name</span>  <span class="colon">:</span id ="name"><span>Larra Bens</span></div>
+                    <div class="details"><span class="detail-info">Email</span>  <span class="colon">:</span><span id="email">larrabens@gmail.com</span></div>
+                    <div class="details"><span class="detail-info">Nationality</span>  <span class="colon">:</span><span id= "nationality">Ghanaian</span></div>
+                </div>
+            </div>
+
+            <!-- EDIT PROFILE PAGE -->
+
+            <form action="/studentprofile" method="post" id="edit-profile">
+                <label for="fname" class="labels">First name</label><br>
+                <input type="text" name="fname" id="fname" class="area" value="Larra"><br>
+                <label for="lname" class="labels">Last name</label><br>
+                <input type="text" name="lname" id="lname" class="area" value="Bens"><br>
+                <label for="email" class="labels">Email</label><br>
+                <input type="email" name="email" id="email" class="area" value="larrabens@gmail.com"><br>
+                
+                <div id="btns">
+                    <button type="submit"  class="discard">Discard</button>
+                    <button type="submit"  class="save">Save</button>
+                </div>
+                
+            </form>
+
+ <!-- 
+                    RESET PASSWORD
+ -->
+
+  <form action="" method="post" id="reset-password">
+
+    <label for="old-password" class="labels">Enter old password</label><br>
+    <input type="password" name="old-password" id="old-password" class="area"><br>
+    <label for="new-password" class="labels">Enter new password</label><br>
+    <input type="password" name="new-password" id="new-password" class="area"><br>
+    <label for="confirm-password" class="labels">Confirm password</label><br>
+    <input type="password" name="confim-password" id="confirm-password" class="area"><br>
+    
+    <div id="btns">
+        <button type="submit"  class="discard">Discard</button>
+        <button type="submit"  class="save">Save</button>
+    </div>
+
+  </form>
+
+<!--Upload video-->
+
+        </div>
+    </main>
+
+   </div>
+
+
+    
+</div>
+
+
+    <footer>
+        <p> <span id="year"></span>| All Right Reserved</p>
+    </footer> 
+</body>
+
+<script src="https://kit.fontawesome.com/9c854c6a40.js" crossorigin="anonymous"></script>
+<script src="../static/js/Student.js"></script>
+</html>
