@@ -2,12 +2,13 @@ from flask import Flask, render_template, request, redirect, url_for,make_respon
 import psycopg2
 import os  #imported because I will need it to check for the file existence on the file system.
 import uuid  #will be needed to give the vid a unique ID
+import urllib.parse as up
 
 
 
-# connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost") 
+# connection = psycopg2.connect(database="zgfjlokh", user="zgfjlokh", password="tm0LNUdachJpQt7s-Lh0izMRGzzsJolf", host="host=dumbo.db.elephantsql.com") 
             
-app = Flask(__name__)
+app = Flask(__name__, template_folder="templates")
 app.secret_key = 'krem' 
 app.static_folder = 'static'
 
@@ -18,7 +19,16 @@ def index():
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method=='POST':
-        connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost") 
+        os.environ["DATABASE_URL"] = "postgres://zgfjlokh:tm0LNUdachJpQt7s-Lh0izMRGzzsJolf@dumbo.db.elephantsql.com/zgfjlokh"
+        up.uses_netloc.append("postgres")
+        url = up.urlparse(os.environ["DATABASE_URL"])
+        connection = psycopg2.connect(
+        database=url.path[1:],
+        user=url.username,
+        password=url.password,
+        host=url.hostname,
+        port=url.port
+)
         role = request.form.get('role')
         if role == 'student':
             first_name=request.form.get('firstname')
@@ -70,7 +80,16 @@ def signup():
 def login():
     
     if request.method=='POST':
-        connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost") 
+        os.environ["DATABASE_URL"] = "postgres://zgfjlokh:tm0LNUdachJpQt7s-Lh0izMRGzzsJolf@dumbo.db.elephantsql.com/zgfjlokh"
+        up.uses_netloc.append("postgres")
+        url = up.urlparse(os.environ["DATABASE_URL"])
+        connection = psycopg2.connect(
+        database=url.path[1:],
+        user=url.username,
+        password=url.password,
+        host=url.hostname,
+        port=url.port
+)
         email=request.form.get('email')
         password=request.form.get('password')
         instructor_email = email 
@@ -101,7 +120,7 @@ def login():
             else:
                 #   print("HI")
                   error_message = "Invalid Email or Password"
-                  return render_template('Login.html', error_message=error_message)
+                  return render_template('login.html', error_message=error_message)
 
     return render_template('login.html')
 
@@ -115,7 +134,17 @@ def instructorpage():
     if not instructor_email:
         return redirect('/login')
 
-    connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost")
+    os.environ["DATABASE_URL"] = "postgres://zgfjlokh:tm0LNUdachJpQt7s-Lh0izMRGzzsJolf@dumbo.db.elephantsql.com/zgfjlokh"
+    up.uses_netloc.append("postgres")
+    url = up.urlparse(os.environ["DATABASE_URL"])
+    connection = psycopg2.connect(
+    database=url.path[1:],
+    user=url.username,
+    password=url.password,
+    host=url.hostname,
+    port=url.port
+    )
+     
     cursor = connection.cursor()
     query = "SELECT firstname, lastname, e_mail, nationality, speciality, year_of_experience FROM instructor WHERE e_mail = %s"
     cursor.execute(query, (instructor_email,))
@@ -132,10 +161,22 @@ def instructorpage():
 @app.route('/uploadvid', methods=['POST'])
 def uploadvid():
     if request.method == 'POST':
-        connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost") 
+        instructor_email = session.get('instructor_email')
+        
+        os.environ["DATABASE_URL"] = "postgres://zgfjlokh:tm0LNUdachJpQt7s-Lh0izMRGzzsJolf@dumbo.db.elephantsql.com/zgfjlokh"
+        up.uses_netloc.append("postgres")
+        url = up.urlparse(os.environ["DATABASE_URL"])
+        connection = psycopg2.connect(
+        database=url.path[1:],
+        user=url.username,
+        password=url.password,
+        host=url.hostname,
+        port=url.port
+        )
+        
         video = request.files['video']
         title=request.form.get('title')
-        description=request.form.get('title')
+        description=request.form.get('description')
 
         # videoname = video.filename
 
@@ -152,15 +193,25 @@ def uploadvid():
             query = "INSERT INTO video(title, description, file_path) VALUES (%s, %s ,%s)"
             cursor.execute(query, (title, description,file_path))
             connection.commit()
-            return render_template('instructorPage.html') #there will be a flash here
-        else:
-            return "Upload Failed"
+            cursor.close()
+            connection.close()
+            return redirect('/show_instructor_details') 
+        return "Upload Failed"
 
     return render_template('instructorPage.html')
 
 @app.route('/play_video/<int:courseId>', methods=['GET'])
 def play_video(courseId):
-    connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost")
+    os.environ["DATABASE_URL"] = "postgres://zgfjlokh:tm0LNUdachJpQt7s-Lh0izMRGzzsJolf@dumbo.db.elephantsql.com/zgfjlokh"
+    up.uses_netloc.append("postgres")
+    url = up.urlparse(os.environ["DATABASE_URL"])
+    connection = psycopg2.connect(
+    database=url.path[1:],
+    user=url.username,
+    password=url.password,
+    host=url.hostname,
+    port=url.port
+)
 
     cursor = connection.cursor()
     cursor.execute('SELECT file_path FROM video WHERE video_id = %s', (courseId,))
@@ -193,8 +244,16 @@ def editprofile():
         return redirect('/login')
 
     if request.method == 'POST':
-        connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost")
-
+        os.environ["DATABASE_URL"] = "postgres://zgfjlokh:tm0LNUdachJpQt7s-Lh0izMRGzzsJolf@dumbo.db.elephantsql.com/zgfjlokh"
+        up.uses_netloc.append("postgres")
+        url = up.urlparse(os.environ["DATABASE_URL"])
+        connection = psycopg2.connect(
+        database=url.path[1:],
+        user=url.username,
+        password=url.password,
+        host=url.hostname,
+        port=url.port
+)
         firstname = request.form.get('fname')
         lastname = request.form.get('lname')
         New_email = request.form.get('New_email')
@@ -220,7 +279,16 @@ def editprofile():
 @app.route('/reset_password', methods=['POST'])
 def reset_password():
     instructor_email = session.get('instructor_email')
-    connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost")
+    os.environ["DATABASE_URL"] = "postgres://zgfjlokh:tm0LNUdachJpQt7s-Lh0izMRGzzsJolf@dumbo.db.elephantsql.com/zgfjlokh"
+    up.uses_netloc.append("postgres")
+    url = up.urlparse(os.environ["DATABASE_URL"])
+    connection = psycopg2.connect(
+    database=url.path[1:],
+    user=url.username,
+    password=url.password,
+    host=url.hostname,
+    port=url.port
+)
     old_password=request.form.get('old-password')
     new_password=request.form.get('new-password')
     confirm_password=request.form.get('confirm-password')
@@ -243,7 +311,16 @@ def show_instructor_details():
     if not instructor_email:
         return redirect('/login')
 
-    connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost")
+    os.environ["DATABASE_URL"] = "postgres://zgfjlokh:tm0LNUdachJpQt7s-Lh0izMRGzzsJolf@dumbo.db.elephantsql.com/zgfjlokh"
+    up.uses_netloc.append("postgres")
+    url = up.urlparse(os.environ["DATABASE_URL"])
+    connection = psycopg2.connect(
+    database=url.path[1:],
+    user=url.username,
+    password=url.password,
+    host=url.hostname,
+    port=url.port
+)
     cursor = connection.cursor()
     query = "SELECT firstname, lastname, e_mail, nationality, speciality, year_of_experience FROM instructor WHERE e_mail = %s"
     cursor.execute(query, (instructor_email,))
@@ -258,4 +335,4 @@ def show_instructor_details():
         return render_template('instructorpage.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='172.20.10.5', port=5000, debug=True)
