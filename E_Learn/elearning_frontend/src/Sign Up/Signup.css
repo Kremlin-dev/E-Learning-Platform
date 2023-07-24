@@ -1,0 +1,114 @@
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+:root{
+    --color-white: #fff;
+    --color-green: #008080;
+    
+}
+body{
+    background-color: rgb(232, 227, 227);
+
+}
+.flex-container{
+    border-top: 5px solid var(--color-green);
+    width: 480px;
+    height: 670px;
+    margin: 30px auto;
+    background-color: #fff;
+    box-shadow: 5px 5px 20px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    padding: 0 40px;
+    position: relative;
+    overflow: hidden;
+}
+.toggle-btn{
+    position: relative;
+    margin: 30px auto;
+    width: 300px;
+    box-shadow: 0 0 10px rgb(0, 128, 128, 0.4);
+    border-radius: 20px;
+}
+.signup-btn{
+    padding: 10px 15px;
+    background: transparent;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    font-weight: 600;
+    position: relative;
+}
+#gradient-btn{
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    left: 0;
+    top: 0;
+    background: linear-gradient(to right, #008080, #fff);
+    border-radius: 20px;
+    transition: all 400ms ease-in-out;
+}
+
+form{
+    width: 400px;
+    padding: 20px 15px;
+    position: absolute;
+    
+}
+#student{
+    left: 50px;
+}
+#tutor{
+    left: 480px;
+}
+form input{
+    width: 100%;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 1px solid rgb(64, 63, 63);
+    margin: 5px 0;
+    padding: 10px 5px;
+    outline: none;
+    font-size: 18px;
+    background: transparent;
+}
+.profile-picture-btn{
+    position: relative;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 3px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+    overflow: hidden;
+    color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 1px solid rgb(64, 63, 63);
+}
+.profile-picture-btn input[type="file"]{
+    position: absolute;
+    cursor: pointer;
+    left: 0;
+    top: 0;
+    transform: scale(3);
+    opacity: 0;
+}
+.submit-btn{
+    padding: 10px 40px;
+    border: 0;
+    width: 70%;
+    border-radius: 5px;
+    margin-left: 40px;
+    font-size: 18px;
+    color: #fff;
+    margin-top: 20px;
+    cursor: pointer;
+    background-color: #008080;
+}

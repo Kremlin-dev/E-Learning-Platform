@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - E-Learning</title>
+    <link rel="stylesheet" href="Signup.css">
+</head>
+   
+<body>
+  <div class="flex-container">
+    <div class="toggle-btn">
+      <div id="gradient-btn"></div>
+      <button type="button" class="signup-btn" onclick="tutor()">Sign up as Student</button>
+      <button type="button" class="signup-btn" onclick="student()">Sign up as Tutor</button>
+    </div>
+    <!-- <p>Already signed up? <a href="" target="">Log In</a></p> -->
+    <form action="" method="get" id="student">
+        <input type="text" placeholder="First Name" required>
+        <input type="text" placeholder="Last Name" required>
+        <input type="email" placeholder="E-mail" required>
+        <input type="text" placeholder="Nationality" required>
+        <input type="password" placeholder="Create a password">
+        <input type="password" placeholder="confirm password">
+        <button type="button" class="profile-picture-btn"> 
+          <i class="fa-solid fa-arrow-up-from-bracket"></i>
+           Upload pofile picture
+          <input type="file" >
+        </button>
+        <button class="submit-btn">Sign Up</button>
+    </form>
+    <form action="" method="get" id="tutor">
+        <input type="text" placeholder="First Name" required>
+        <input type="text" placeholder="Last Name" required>
+        <input type="email" placeholder="E-mail" required>
+        <input type="text" placeholder="Nationality" required>
+        <input type="text" placeholder="Speciality" required>
+        <input type="text" placeholder="Years of experience" required>
+        <input type="password" placeholder="Create a password" required>
+        <input type="password" placeholder="Confirm password" required>
+        <button type="button" class="profile-picture-btn"> 
+          <i class="fa-solid fa-arrow-up-from-bracket"></i>
+           Upload pofile picture
+          <input type="file" >
+        </button>
+        <button class="submit-btn">Sign Up</button>
+    </form>
+
+  </div>
+    
+    <script>
+      const Student = document.getElementById("student");
+      const Tutor = document.getElementById("tutor");
+      const gradientbg = document.getElementById("gradient-btn");
+      const container = document.getElementsByClassName("flex-container");
+
+
+      console.log(this)
+      const student = () => {
+        Student.style.left = "-450px";
+        Tutor.style.left = "50px";
+        gradientbg.style.left = "150px";
+
+      }
+      const tutor = () => {
+        Student.style.left = "50px";
+        Tutor.style.left = "480px";
+        gradientbg.style.left = "0"
+
+      }
+
+
+    </script>
+  <script src="https://kit.fontawesome.com/9c854c6a40.js" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Instructorpage.css">
+    <title>Profile page</title>
+</head>
+<body>
+   <div id="main-container">
+    <header>
+        <div id="minor-nav">
+            <div id="profile-icon">
+                <a href="./Instructorpage.html"><i class="fa-regular fa-user"></i> My Profile</a>
+            </div>
+            <div id="num-views">
+                <h1 class="text-4xl"><a href="../Homepage/Homepage.html">LoGo</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <div id="profile-container">
+            <div id="container-head">
+                <li>
+                    <ul> <i class="fa-regular fa-user"></i><a href="#" id ="profilebtn"class="nav-icons" style="color:  #06c4c4">Profile</a> </ul>
+                    <ul><i class="fa-sharp fa-regular fa-address-card"></i><a href="#" class="nav-icons">Edit Profile</a> </ul>
+                    <ul><i class="fa-sharp fa-solid fa-arrow-down-up-lock"></i><a href="#" class="nav-icons">Change Password</a> </ul> 
+                    <ul><i class="fa-solid fa-arrow-up-from-bracket"></i><a href="#" class="nav-icons">Upload video</a> </ul>
+
+                </li>             
+            </div>
+
+            <!-- PROFILE -->
+
+            <div id="container-body">
+                <div id="person-info">
+                    <img src="../../assets/profile.png" alt="" srcset="">
+                    <h3>James Roberts</h3>
+                    <h5>Graphic Designer</h5>
+                    <h5>Ghana</h5>
+                </div>
+
+                <div id="person-details">
+                    <div class="details"><span class="detail-info">Name</span>  <span class="colon">:</span id ="name"><span>James Roberts</span></div>
+                    <div class="details"><span class="detail-info">Email</span>  <span class="colon">:</span><span id="email">jamesroberts@gmail.com</span></div>
+                    <div class="details"><span class="detail-info">Specialty</span>  <span class="colon">:</span><span id="specialty">Graphic Designer</span></div>
+                    <div class="details"><span class="detail-info">Years of Experience</span>  <span class="colon">:</span><span id="occupation">2+ years</span></div>
+                    <div class="details"><span class="detail-info">Nationality</span>  <span class="colon">:</span><span id= "nationality">Ghanaian</span></div>
+                </div>
+            </div>
+
+            <!-- EDIT PROFILE PAGE -->
+
+            <form action="" method="post" id="edit-profile">
+                <label for="fname" class="labels">First name</label><br>
+                <input type="text" name="fname" id="fname" class="area" value="James"><br>
+                <label for="lname" class="labels">Last name</label><br>
+                <input type="text" name="lname" id="lname" class="area" value="Roberts"><br>
+                <label for="email" class="labels">Email</label><br>
+                <input type="email" name="email" id="email" class="area" value="jamesrobertsgmail.com"><br>
+                <label for="speciality" class="labels">Speciality</label><br>
+                <input type="text" name="speciality" value="Graphic designer" class="area"><br>
+                <label for="years of experience" class="labels">Years of Experience</label><br>
+                <input type="number" name="years" class="area" value="2"><br>
+                
+                <div id="btns">
+                    <button type="submit"  class="discard">Discard</button>
+                    <button type="submit"  class="save">Save</button>
+                </div>
+                
+            </form>
+
+
+ <!-- 
+                    RESET PASSWORD
+ -->
+
+  <form action="" method="post" id="reset-password">
+
+    <label for="old-password" class="labels">Enter old password</label><br>
+    <input type="password" name="old-password" id="old-password" class="area"><br>
+    <label for="new-password" class="labels">Enter new password</label><br>
+    <input type="password" name="new-password" id="new-password" class="area"><br>
+    <label for="confirm-password" class="labels">Confirm password</label><br>
+    <input type="password" name="confim-password" id="confirm-password" class="area"><br>
+    
+    <div id="btns">
+        <button type="submit"  class="discard">Discard</button>
+        <button type="submit"  class="save">Save</button>
+    </div>
+
+  </form>
+
+
+  <!-- 
+        UPLOAD VIDEO
+  -->
+  <form action="" method="post" id="upload-video">
+    <div>
+      <label for="title" class="labels">Course Title</label><br>
+      <input type="text"  id="title" class= "area">
+    </div>   
+    <div class="description">
+      <label for="description" class="labels">Description</label><br>
+       <textarea id="description" cols="20" rows="6" placeholder="Enter Details...">
+      </textarea>
+    </div> 
+
+    <div class="video-thumbnail">
+    <div id= "upload">
+        <label for="video" class="labels">Upload video thumbnail</label><br>
+        <input type="file" name="thumbnail" id="thumbnail">
+      </div>
+    <div id= "upload">
+      <label for="video" class="labels">Upload video</label><br>
+      <input type="file" name="video" id="video">
+    </div> 
+  </div>
+
+    <div id="btns">
+        <button type="submit"  class="discard">Discard</button>
+        <button type="submit"  class="save">Save</button>
+    </div>
+  </form>
+   
+        </div>
+    </main>
+
+   </div>
+
+
+    
+</div>
+
+
+    <footer>
+        <p> <span id="year"></span>| All Right Reserved</p>
+    </footer> 
+</body>
+
+<script src="https://kit.fontawesome.com/9c854c6a40.js" crossorigin="anonymous"></script>
+<script src="Instructorpage.js"></script>
+</html>

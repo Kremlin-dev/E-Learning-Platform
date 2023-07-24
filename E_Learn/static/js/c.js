@@ -68,6 +68,8 @@ const courses = [
   // Function to render courses in the video container
   function renderCourses(courses) {
     const videoContainer = document.querySelector('.video-container');
+    const videoLinks = document.querySelectorAll('.video-link');
+
     videoContainer.innerHTML = '';
   
     courses.map((item) => {
@@ -85,9 +87,8 @@ const courses = [
     });
   
     // Add event listener to the video links
-    const videoLinks = document.querySelectorAll('.video-link');
-    videoLinks.forEach(link => {
-      link.addEventListener('click', redirectToVideo);
+       videoLinks.forEach(link => {
+       link.addEventListener('click', redirectToVideo);
     });
   }
   
@@ -121,16 +122,36 @@ const courses = [
     }
   }
   
-  
-  
+
   // Function to perform search based on user input
   function performSearch() {
-    const searchInput = document.getElementById('searchInput').value.toLowerCase();
+    const videoContainer = document.querySelector('.video-container');
+    var searchInput = document.getElementById('searchInput');
+    const searchTerm = searchInput.value.toLowerCase();
+    const links = document.getElementsByClassName('links');
+
     const matchingCourses = courses.filter(course =>
-      course.videoName.toLowerCase().includes(searchInput)
-    );
-  
-    renderCourses(matchingCourses);
+    course.videoName.toLowerCase().includes(searchTerm));
+     renderCourses(matchingCourses);
+   
+    //  // Clear previous search results
+     videoContainer.innerHTML = '';
+     searchInput = '';
+
+        
+        const sidebarTerm = links.dataset.searchData.toLowerCase();
+        const newMarch = courses.filter(newcourse => newcourse.videoName.toLowerCase())
+        if(newMarch.includes(sidebarTerm)) {
+          renderCourses(newMarch);
+        }
+       
+
+      if(matchingCourses === 0) {
+       const noResultsItem = document.getElementById('no-results');
+       noResultsItem.innerHTML = 'No results found';   
+     }
+    
+       
   }
   
   // Function to handle key press in the input field
@@ -148,8 +169,8 @@ const courses = [
   document.getElementById('searchInput').addEventListener('keydown', handleKeyPress);
   
   // Event listener for links in the sidebar
-  const buttons = document.querySelectorAll('.links');
-  buttons.forEach(button => {
+  const links = document.querySelectorAll('.links');
+  links.forEach(button => {
     button.addEventListener('click', performSearch);
   });
   
