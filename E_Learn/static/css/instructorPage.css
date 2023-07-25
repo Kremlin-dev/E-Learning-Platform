@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lugrasimo&family=Manrope:wght@400;500;600;700;800&display=swap');
+
 *{
     box-sizing: border-box;
     margin: 0;
@@ -12,6 +14,10 @@
                 THIS IS THE PROFILE SIDE.
 ----------------------------------------------------------------------
 */
+a{
+    text-decoration: none;
+    color: #fff;
+}
 #main-container{
     width: 80%;
     height: 55rem;
@@ -58,15 +64,8 @@ header #minor-nav
     color: white;
     margin-top: 2rem;
 }
-
-#num-views p{
-    font-size: large;
-    margin-bottom: 0.3rem;
-}
-
-#num-views h3{
-    font-size: 2rem;
-    
+#num-views h1 a{
+    font-family: 'Lugrasimo', cursive;
 }
 
 /* THIS IS THE CONTAINER OF THE PROFILE */

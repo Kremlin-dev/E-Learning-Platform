@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Lugrasimo&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 *{
     margin: 0;
@@ -35,6 +36,11 @@ li{
 }
 .header__padding{
   padding: 10rem 4rem 4rem;
+}
+nav h1 a, 
+footer h1{
+    font-family: 'Lugrasimo', cursive;
+
 }
 /*============Header=========*/
 .app__header{
