@@ -37,27 +37,27 @@
             <div id="container-body">
                 <div id="person-info">
                     <img src="../static/images/student.jpg" alt="" srcset="">
-                    <h3>Larra Bens</h3>
+                    <h3>{{ first_name}} {{last_name }}</h3>
                     <h5>Student</h5>
-                    <h5>Ghana</h5>
+                    <h5>{{ nationality }}</h5>
                 </div>
 
                 <div id="person-details">
-                    <div class="details"><span class="detail-info">Name</span>  <span class="colon">:</span id ="name"><span>Larra Bens</span></div>
-                    <div class="details"><span class="detail-info">Email</span>  <span class="colon">:</span><span id="email">larrabens@gmail.com</span></div>
-                    <div class="details"><span class="detail-info">Nationality</span>  <span class="colon">:</span><span id= "nationality">Ghanaian</span></div>
+                    <div class="details"><span class="detail-info">Name</span>  <span class="colon">:</span id ="name"><span>{{ first_name }} {{ last_name}}</span></div>
+                    <div class="details"><span class="detail-info">Email</span>  <span class="colon">:</span><span id="email">{{ email }}</span></div>
+                    <div class="details"><span class="detail-info">Nationality</span>  <span class="colon">:</span><span id= "nationality">{{ nationality }}</span></div>
                 </div>
             </div>
 
             <!-- EDIT PROFILE PAGE -->
 
-            <form action="/studentprofile" method="post" id="edit-profile">
+            <form action="/student_editprofile" method="post" id="edit-profile">
                 <label for="fname" class="labels">First name</label><br>
                 <input type="text" name="fname" id="fname" class="area" value="Larra"><br>
                 <label for="lname" class="labels">Last name</label><br>
                 <input type="text" name="lname" id="lname" class="area" value="Bens"><br>
                 <label for="email" class="labels">Email</label><br>
-                <input type="email" name="email" id="email" class="area" value="larrabens@gmail.com"><br>
+                <input name="New_email" type="email" name="email" id="email" class="area" value="larrabens@gmail.com"><br>
                 
                 <div id="btns">
                     <button type="submit"  class="discard">Discard</button>
@@ -70,14 +70,14 @@
                     RESET PASSWORD
  -->
 
-  <form action="" method="post" id="reset-password">
+  <form action="/student_reset_password" method="post" id="reset-password">
 
     <label for="old-password" class="labels">Enter old password</label><br>
     <input type="password" name="old-password" id="old-password" class="area"><br>
     <label for="new-password" class="labels">Enter new password</label><br>
     <input type="password" name="new-password" id="new-password" class="area"><br>
     <label for="confirm-password" class="labels">Confirm password</label><br>
-    <input type="password" name="confim-password" id="confirm-password" class="area"><br>
+    <input type="password" name="confirm-password" id="confirm-password" class="area"><br>
     
     <div id="btns">
         <button type="submit"  class="discard">Discard</button>

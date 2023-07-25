@@ -111,7 +111,7 @@ def login():
             
             if fetch_student is not None:
                 session['student_email'] = email
-                return redirect('/studentprofile')
+                return redirect('/student_details')
                 #print("Hello")
 
             elif fetch_instructor is not None:
@@ -336,8 +336,8 @@ def show_instructor_details():
         return render_template('instructorpage.html')
     
 
-@app.route('/studentprofile', methods=['GET', 'POST'])
-def studentprofile():
+@app.route('/student_editprofile', methods=['GET', 'POST'])
+def student_editprofile():
     student_email = session.get('student_email')
     if not student_email:
         return redirect('/login')
@@ -356,22 +356,84 @@ def studentprofile():
         firstname = request.form.get('fname')
         lastname = request.form.get('lname')
         new_email = request.form.get('New_email')
+        print(new_email)
       
 
         if student_email:
             cursor = connection.cursor()
-           
-            query = "UPDATE students SET first_name = %s, last_name = %s, email = %s, WHERE email = %s"
+            query = "UPDATE students SET first_name = %s, last_name = %s, email = %s WHERE email = %s"
             cursor.execute(query, (firstname, lastname, new_email, student_email))
             connection.commit()
             cursor.close()
             connection.close()
             session['student_email'] = new_email
-            return render_template('Student.html')
+            return redirect('student_details')
         else:
             print("User email not found in the session.")
 
     return render_template('Student.html')
+
+
+
+@app.route('/student_details', methods=['GET'])
+def student_details():
+    student_email = session.get('student_email')
+    if not student_email:
+        return redirect('/login')
+
+    os.environ["DATABASE_URL"] = "postgres://zgfjlokh:tm0LNUdachJpQt7s-Lh0izMRGzzsJolf@dumbo.db.elephantsql.com/zgfjlokh"
+    up.uses_netloc.append("postgres")
+    url = up.urlparse(os.environ["DATABASE_URL"])
+    connection = psycopg2.connect(
+    database=url.path[1:],
+    user=url.username,
+    password=url.password,
+    host=url.hostname,
+    port=url.port
+)
+    cursor = connection.cursor()
+    query = "SELECT first_name, last_name, email, nationality FROM students WHERE email = %s"
+    cursor.execute(query, (student_email,))
+    instructor_info = cursor.fetchone()
+    cursor.close()
+    connection.close()
+
+    if instructor_info:
+        first_name, last_name, email, nationality= instructor_info
+        return render_template('Student.html', first_name=first_name, last_name=last_name, email=email, nationality=nationality)
+    else:
+        return render_template('student.html')
+    
+
+@app.route('/student_reset_password', methods=['POST'])
+def student_reset_password():
+    student_email = session.get('student_email')
+    os.environ["DATABASE_URL"] = "postgres://zgfjlokh:tm0LNUdachJpQt7s-Lh0izMRGzzsJolf@dumbo.db.elephantsql.com/zgfjlokh"
+    up.uses_netloc.append("postgres")
+    url = up.urlparse(os.environ["DATABASE_URL"])
+    connection = psycopg2.connect(
+    database=url.path[1:],
+    user=url.username,
+    password=url.password,
+    host=url.hostname,
+    port=url.port
+)
+    old_password=request.form.get('old-password')
+    new_password=request.form.get('new-password')
+    confirm_password=request.form.get('confirm-password')
+    print(confirm_password)
+
+    if old_password:
+         
+         cursor = connection.cursor()
+         query = "UPDATE students SET password = %s, c_password = %s  WHERE email = %s"
+         cursor.execute(query, (new_password, confirm_password, student_email))
+         connection.commit()
+         cursor.close()
+         connection.close()
+         return redirect('/student_details')
+    return render_template('Student.html')
+
 
 
 if __name__ == '__main__':
