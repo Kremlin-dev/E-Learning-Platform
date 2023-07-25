@@ -38,5 +38,5 @@ HTML/CSS
 Tailwind
 
 **Backend:**
-Python/Django/flask
+Python/flask/PostgreSQL
 
