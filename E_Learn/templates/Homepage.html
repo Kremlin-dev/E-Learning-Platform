@@ -19,7 +19,7 @@
 <body>
   <header class="app__header">
    <div class="app__header-overlay">
-    <nav id="navbar"><h1 class="text-4xl"><a href="../templates/Homepage.html">LoGo</a></h1>
+    <nav id="navbar"><h1 class="text-4xl"><a href="{{ url_for('index') }}">LoGo</a></h1>
       
         <ul>
           <li><a href="#home">Home</a></li>
@@ -45,7 +45,7 @@
     </div>
 
     <div class="header__padding flex flex-col justify-center items-center" data-aos="zoom-in" id="home">
-      <h1 class="font-bold text-center">The Smatter Way To Learn Anything</h1>
+      <h1 class="font-bold text-center">The Smarter Way To Learn Anything</h1>
       <p class="mt-4 mb-2 md:mt-2 mb:mb-2">Thousands of Classes to fuel Your Career and Creativity</p>
       <button class="text-sm header-button"><span>Get Started For Free</span></button>
     </div>
