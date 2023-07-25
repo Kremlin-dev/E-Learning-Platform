@@ -5,7 +5,7 @@ the setup and features of our application, which comprises both frontend
 
 <img src="./homepage.png" width="100%" />
 
-The Application was built with a combination of Django and Flask frameworks for the
+The Application was built with a combination of PostgreSQL, python and Flask framework for the
  backend, and for the frontend, we have utilized HTML, CSS, JavaScript, and the 
  Tailwind CSS framework. Our goal is to create a powerful and efficient learning
 platform that offers a smooth and intuitive user experience.
