@@ -1,9 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Lugrasimo&family=Manrope:wght@400;500;600;700;800&display=swap');
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
+a{
+    text-decoration: none;
+    
+}
 body{
     position: relative;
     background: #f0f0f0;
@@ -24,7 +29,9 @@ body{
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1;
 }
-
+nav h1 a{
+    font-family: 'Lugrasimo', cursive;
+}
 .search-box{
     position: relative;
     max-width: 500px;
