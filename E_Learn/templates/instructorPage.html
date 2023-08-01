@@ -11,12 +11,12 @@
    <div id="main-container">
     <header>
         <div id="minor-nav">
-            <div id="profile-icon">
-                <i class="fa-regular fa-user"></i> My Profile
-            </div>
             <div id="num-views">
                 <h1><a href="{{  url_for('index')}}">lernify</a></h1>
             </div>
+            <div id="profile-icon">
+                <a href="./Homepage.html">Logout</a>  
+              </div>
         </div>
     </header>
 
@@ -44,11 +44,26 @@
                 
 
                 <div id="person-details">
-                    <div class="details"><span class="detail-info">Name</span><span class="colon">:</span><span id="name">{{ firstname }} {{ lastname }}</span></div>
-                    <div class="details"><span class="detail-info">Email</span><span class="colon">:</span><span id="email">{{ email }}</span></div>
-                    <div class="details"><span class="detail-info">Specialty</span><span class="colon">:</span><span id="specialty">{{ speciality }}</span></div>
-                    <div class="details"><span class="detail-info">Years of Experience</span><span class="colon">:</span><span id="occupation">{{ year_of_experience }}</span></div>
-                    <div class="details"><span class="detail-info">Country</span><span class="colon">:</span><span id="nationality">{{ nationality }}</span></div>
+                    <div class="details">
+                        <span class="detail-info">Name</span>
+                        <span id="name">{{ firstname }} {{ lastname }}</span>
+                    </div>
+                    <div class="details">
+                        <span class="detail-info">Email</span>
+                        <span id="email">{{ email }}</span>
+                    </div>
+                    <div class="details">
+                        <span class="detail-info">Specialty</span>
+                        <span id="specialty">{{ speciality }}</span>
+                    </div>
+                    <div class="details">
+                        <span class="detail-info">Years of Experience</span>
+                       <span id="occupation">{{ year_of_experience }}</span>
+                    </div>
+                    <div class="details">
+                        <span class="detail-info">Nationality</span>
+                        <span id="nationality">{{ nationality }}</span>
+                    </div>
                 </div>
                 
             </div>

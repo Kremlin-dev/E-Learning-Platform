@@ -73,12 +73,12 @@ header #minor-nav
 #profile-container{
     background-color:#fff;
     width: 80%;
-    height: 38rem;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     padding: 3rem;
     position: absolute;
-    left: 18.5%;
+    left: 10%;
     top: 12rem;
     border-radius: 1rem;
 }
@@ -151,14 +151,19 @@ header #minor-nav
 }
 
 .details{
-    font-size: 1.3rem;
+    font-size: 18px;
     height: 3rem;
     margin-bottom: 0.9rem;
     display: flex;
     justify-content:flex-start;
     align-items: center;
+    width: 90%;
 }
 
+.details .detail-info{
+ margin: 0 20px 0;
+
+}
 
 
 .details .detail-info{
@@ -185,14 +190,14 @@ li ul i{
 footer{
     width: 100%;
     height: 3rem;
-    /* position: absolute; */
-    bottom: 0%;
-   
+    position: fixed; 
+    bottom: 0; 
+    left: 0;
+    right: 0;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color:#02c0c0;
+    background-color:var(--color-green);
 }
 
 footer p{
@@ -282,27 +287,18 @@ text:focus
 */
 
 form  textarea{
-    /* outline:none; */
-    /* padding: 8px 10px; */
-    /* border-radius: 5px; */
+
     width: 80%;
     font-size: 20px;
     margin-bottom: 20px;
-    /* border:none; */
+
   }
   form .description{
       display: flex;
       align-items: flex-start;
       flex-direction: column;
   }
-  /* form .description textarea{
-   margin-left: 12px;
-  } */
-  
-  /* #upload{
-    width: 80%;
-  
-  } */
+ 
   [type="file"]::-webkit-file-upload-button
   {   width: 60%;
       background-color: rgb(16, 181, 172);
@@ -334,15 +330,38 @@ form  textarea{
     display: none;
    }
 
-  
-   /* 
-   ................................................................
-        THIS IS A MOBILE VERSION
-   ........................................................
-   
-   
-   */
+   @media screen and (max-width:950px){
+    #container-body{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+  }
 
-   /* Styles for screens with a maximum width of 600 pixels */
+  @media screen and (max-width:900px){
+    .details{
+        width: 100%;
+    }
+    #main-container{
+        width: 100%;
+        margin: 0;
+    }
 
+  }
+  @media screen and (max-width: 750px){
+   #profile-container{
+    width: 94%;
+    left: 3%;
+    margin-right: 3%;
+   }
+  }
+  @media screen and (max-width: 450px){
+    #container-head i{
+        display: none;
+    }
+    #container-head li ul{
+        margin: 0 5px;
+    }
+  }
   

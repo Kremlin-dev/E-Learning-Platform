@@ -67,7 +67,6 @@ li {
     list-style: none; /* Remove the list-style (dot) */
   }
 
-  /* This is when the user enters something which is not found. */
 
 #no-results {
     position: absolute;
@@ -189,7 +188,7 @@ li {
         display: flex;
         width: 100%;
     }
-    .side-bar a:nth-child(9){
+    .side-bar a:last-child{
         display: none;
     }
    
@@ -210,11 +209,11 @@ li {
     }
     
 .search-bar{
-    width: 100%;
+    width: 60%;
 }
 .search-box{
     margin-right: 10px;
-    width: 65%;
+    width: 50%;
 }
 
 .search-btn{

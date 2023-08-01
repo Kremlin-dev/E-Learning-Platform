@@ -11,11 +11,11 @@
    <div id="main-container">
     <header>
         <div id="minor-nav">
-            <div id="profile-icon">
-              <a href="../templates/Student.html"><i class="fa-regular fa-user"></i> My Profile</a>  
-            </div>
             <div id="num-views">
-            <h1 class="text-4xl"><a href="{{ url_for('index')}}">lernify</a></h1>
+                <h1 class="text-4xl"><a href="{{ url_for('index')}}">lernify</a></h1>
+                </div>
+            <div id="profile-icon">
+              <a href="./Homepage.html">Logout</a>  
             </div>
         </div>
     </header>
@@ -27,7 +27,6 @@
                     <ul> <i class="fa-regular fa-user"></i><a href="#" id ="profilebtn"class="nav-icons" style="color:  #06c4c4">Profile</a> </ul>
                     <ul><i class="fa-sharp fa-regular fa-address-card"></i><a href="#" class="nav-icons">Edit Profile</a> </ul>
                     <ul><i class="fa-sharp fa-solid fa-arrow-down-up-lock"></i><a href="#" class="nav-icons">Change Password</a> </ul>
-                    <ul><i class="fa-solid fa-arrow-up-from-bracket"></i><a href="{{ url_for('coursepage') }}" class="nav-icons">View courses</a> </ul>
 
                 </li>             
             </div>
@@ -36,16 +35,25 @@
 
             <div id="container-body">
                 <div id="person-info">
-                    <img src="../static/images/student.jpg" alt="" srcset="">
-                    <h3>{{ first_name}} {{last_name }}</h3>
+                    <img src="../static/images/avater.jpg" alt="" srcset="">
+                    <h3>{{ first_name}} {{last_name }} </h3>
                     <h5>Student</h5>
                     <h5>{{ nationality }}</h5>
                 </div>
 
                 <div id="person-details">
-                    <div class="details"><span class="detail-info">Name</span>  <span class="colon">:</span id ="name"><span>{{ first_name }} {{ last_name}}</span></div>
-                    <div class="details"><span class="detail-info">Email</span>  <span class="colon">:</span><span id="email">{{ email }}</span></div>
-                    <div class="details"><span class="detail-info">Nationality</span>  <span class="colon">:</span><span id= "nationality">{{ nationality }}</span></div>
+                    <div class="details">
+                        <span class="detail-info">Name:</span>
+                        <span>{{ first_name }} {{ last_name}}</span>
+                    </div>
+                    <div class="details">
+                        <span class="detail-info">Email:</span>  
+                        <span id="email">{{ email }}</span>
+                    </div>
+                    <div class="details">
+                        <span class="detail-info">Nationality:</span>
+                        <span id= "nationality">{{ nationality }}</span>
+                    </div>
                 </div>
             </div>
 
@@ -92,15 +100,10 @@
 
   </form>
 
-<!--Upload video-->
+ </div>
+</main>
 
-        </div>
-    </main>
-
-   </div>
-
-
-    
+   </div>    
 </div>
 
 
