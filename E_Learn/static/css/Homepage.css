@@ -220,7 +220,7 @@ nav ul li:hover{
 }
 /*============end of services ===========*/
 .online_class{
-  display: grid;
+ display: grid;
  grid-template-columns: 1fr 1fr;
  gap: 20px;
  margin-top: 100px;
@@ -354,8 +354,7 @@ footer{
    grid-template-columns: repeat(2, 1fr);
    gap: 30px;
   }
-}
-@media screen and (max-width: 650px){
+
   h2{
     font-size: 28px;
     line-height: 38px;
