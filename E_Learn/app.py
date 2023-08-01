@@ -27,15 +27,15 @@ app.static_folder = "static"
 
 @app.route("/")
 def index():
-    return render_template("Homepage.html")
+    return render_template("Homepage.html") #rendering the homepage
 
 
-@app.route("/signup", methods=["GET", "POST"])
+@app.route("/signup", methods=["GET", "POST"]) #signup route for student and instructor signup
 def signup():
     if request.method == "POST":
 
         connection = psycopg2.connect(
-            database="E-LEARNING", user="postgres", password="krem", host="localhost"
+            database="E-LEARNING", user="postgres", password="krem", host="localhost"  #Anywhere you see this, it is we connection to our database to do an operation
         )
         role = request.form.get("role")
         if role == "student":
@@ -73,7 +73,7 @@ def signup():
             year_of_experience = request.form.get("YearExperience")
             pass_word = request.form.get("pass_word")
             cpassword = request.form.get("cpass_word")
-            pass_word = generate_password_hash(pass_word)
+            pass_word = generate_password_hash(pass_word) #this is where passwords are hashed
             cpassword = generate_password_hash(cpassword)
 
             cursor = connection.cursor()
@@ -108,7 +108,7 @@ def signup():
     return render_template("Signup.html")
 
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/login", methods=["GET", "POST"]) #login route to allow using authntication and login
 def login():
     if request.method == "POST":
         connection = psycopg2.connect(
@@ -136,9 +136,10 @@ def login():
                     error_message = "Invalid email or password."
                     return render_template("login.html", error_message=error_message)
 
-                if check_password_hash(instructor[1], password):
+                if check_password_hash(instructor[1], password): #unhash and verify password
 
-                    session["instructor_email"] = instructor[0]
+                    session["instructor_email"] = instructor[0]  #anywere you see session, what is ahppening is that, we want to store the current user's login status so we cau play around their email and details as they are logged in
+
                     return redirect("instructorpage")
 
             else:
@@ -170,7 +171,7 @@ def instructorpage():
     )
 
     cursor = connection.cursor()
-    query = "SELECT first_name, last_name, email, nationality, speciality, year_of_experience FROM instructors WHERE email = %s"
+    query = "SELECT first_name, last_name, email, nationality, speciality, year_of_experience FROM instructors WHERE email = %s" #database query to insert
     cursor.execute(query, (instructor_email,))
     instructor_info = cursor.fetchone()
     cursor.close()
@@ -200,7 +201,7 @@ def instructorpage():
         )
 
 
-@app.route("/uploadvid", methods=["POST"])
+@app.route("/uploadvid", methods=["POST"]) #this is the upload route
 def uploadvid():
     if request.method == "POST":
         instructor_email = session.get("instructor_email")
@@ -211,22 +212,22 @@ def uploadvid():
 
         video = request.files["video"]
         title = request.form.get("title")
-        description = request.form.get("description")
+        description = request.form.get("description") #from the html forms
 
         # videoname = video.filename
 
         if video and title:
 
-            filename = f"{title.replace(' ', '_').lower()}.mp4"
-            upload_folder = r"D:\GITHUB\E-Learning-Platform\E_Learn\static\Videos"
+            filename = f"{title.replace(' ', '_').lower()}.mp4" #format the title 
+            upload_folder = r"D:\GITHUB\E-Learning-Platform\E_Learn\static\Videos" #path where the videos are kept
 
-            file_path = os.path.join(upload_folder, filename)
+            file_path = os.path.join(upload_folder, filename) 
             video.save(file_path)
 
             # connection = psycopg2.connect(database="E-LEARNING", user="postgres", password="krem", host="localhost")
             cursor = connection.cursor()
             query = "INSERT INTO videos(title, description, file_path,  instructor_email) VALUES (%s, %s ,%s, %s)"
-            cursor.execute(query, (title, description, file_path, instructor_email))
+            cursor.execute(query, (title, description, file_path, instructor_email))  #insert video details and path
             connection.commit()
             cursor.close()
             connection.close()
@@ -251,11 +252,11 @@ def play_video(courseId):
         file_path = video_data[0]
 
         # print(f"File path from database: {file_path}")
-        if os.path.exists(file_path):
+        if os.path.exists(file_path):  #block to chck if the video exist in the file path
             try:
 
-                with open(file_path, "rb") as video_file:
-                    response = Response(video_file.read(), mimetype="video/mp4")
+                with open(file_path, "rb") as video_file: #open the vid and read from it
+                    response = Response(video_file.read(), mimetype="video/mp4")  #sending the video as a response so we can play it
                     response.headers[
                         "Content-Disposition"
                     ] = f"inline; filename=video_{courseId}.mp4"
@@ -271,7 +272,7 @@ def play_video(courseId):
 
 @app.route("/editprofile", methods=["GET", "POST"])
 def editprofile():
-    instructor_email = session.get("instructor_email")
+    instructor_email = session.get("instructor_email") #don't forget, session means we are capturing the user's login status
     if not instructor_email:
 
         return redirect("/login")
