@@ -115,7 +115,7 @@ nav ul li:hover{
   position: absolute;
   right: 2rem;
   top: 5rem;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--color-green);
   color: var(--color-white);
   border-radius: 20px;
   display: flex;
@@ -127,10 +127,11 @@ nav ul li:hover{
   width: 250px;
   transition: height .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   display: none;
+ 
 }
-.app__header-smallscreen_menu li{
-  margin: 5px 0;
-  font-size: 1.3rem;
+.app__header-smallscreen_menu a{
+  margin: 10px 0;
+  font-size: 1.5rem;
 }
 .app__header-smallscreen_menu.open{
   height: 250px;
@@ -373,7 +374,7 @@ footer{
   .app__header-smallscreen_menu{
     position: absolute;
     top: 8rem;
-    width: 100%;
+    width: 150px;
   }
   .app__services-section_container{
     width: 100%;
@@ -393,7 +394,7 @@ footer{
     line-height: 50px;
   }
   .app__header-smallscreen_menu{
-    width: 100%;
+    width: 50%;
     right: 0;
   }
   .section__padding{
