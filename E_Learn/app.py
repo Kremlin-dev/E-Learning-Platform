@@ -1,4 +1,4 @@
-from flask import (
+from flask import (    
     Flask,
     render_template,
     request,
@@ -47,7 +47,6 @@ def signup():
             c_password = request.form.get("cpassword")
             password = generate_password_hash(password)
             c_password = generate_password_hash(c_password)
-
             cursor = connection.cursor()
             query = "INSERT INTO students(first_name, last_name, nationality, email, password, c_password) VALUES (%s, %s, %s, %s, %s, %s)"
             try:
